@@ -3,24 +3,23 @@
 
 *{
 	font-family: 'Open Sans', 'sans-serif', 'FontAwesome';
-	background-color:rgb(52, 56, 61);
-	color: white;
-}
-label{
-	margin: 5px;
-	padding: 20px;
 }
 #send{
 	color: white;
-  border: 20px solid red;
-  text-decoration: none;
-  background-color: red;
-  border-radius: 50px;
+    border: 15px solid #427ea8;
+    text-decoration: none;
+    background-color: #427ea8;
+    border-radius: 50px;
+    box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.3);
+    transform: perspective(100px) translateZ(0);
+    margin-bottom: 15px;
 }
 #delete{
 	color: white;
-  border: 20px solid red;
-  text-decoration: none;
-  background-color: red;
-  border-radius: 50px;
+    border: 15px solid #427ea8;
+    text-decoration: none;
+    background-color: #427ea8;
+    border-radius: 50px;
+    box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.3);
+    transform: perspective(100px) translateZ(0);
 }
