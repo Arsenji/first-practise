@@ -1,0 +1,10 @@
+*{
+    font-family: 'Open Sans', 'sans-serif', 'FontAwesome';
+    background-color:rgb(52, 56, 61);
+    margin: 20px;
+    align-content: center;
+}
+#form{
+    padding: 80px;
+    color: aliceblue;
+}

@@ -15,6 +15,7 @@ h1{
 	text-align: center;
 }
 #wrapper{
+	background-color:  rgb(52, 56, 61);
 	position: absolute;
 	width: 320px;
 	left: 50%;
@@ -24,10 +25,14 @@ h1{
 }
 /* === Sign in Form === */
 #signin {
-	height: 90px;
+	background-color:  rgb(52, 56, 61);
+	height: 0px;
 	width: 300px;
 	border-radius: 8px;
 	position: relative;
+	margin-top: 200px;
+	margin-left: 550px;
+
 }
 #signin::before {
 	display: block;

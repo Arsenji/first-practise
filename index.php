@@ -14,11 +14,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // получаем email и пароль из формы
-    $email = mysqli_real_escape_string($conn, $_POST['user']);
-    $password = mysqli_real_escape_string($conn, $_POST['pass']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query( $conn , $sql);
+
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['password'] = $_POST['password'];
 
     if(mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
@@ -26,6 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         if(mysqli_num_rows($result) == 1) {
             // авторизуем пользователя
             $_SESSION['email'] = $email;
+            $_SESSION['password'] = $password;
             header("location: welcome.php"); // переходим на страницу приветствия
           } else {
             $error = "Неверный пароль";
@@ -48,13 +52,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body name = "body">
     <?php if(isset($error)) { echo "<div>$error</div>"; } ?>
-    <div id="wrapper">
     <form method="POST" id="signin" action="" autocomplete="off">
-        <input type="text" id="user" name="user" placeholder="username" required>
-        <input type="password" id="pass" name="pass" placeholder="password" required>
+        <input type="text" id="email" name="email" placeholder="email" required>
+        <input type="password" id="password" name="password" placeholder="password" required>
         <button type="submit">&#xf0da;</button>
         <p name = "error"><?php echo $error; ?></p>
+        <a href="regist.php">Зарегистрироваться</a>
     </form>
 </div>
+
 </body>
 </html>

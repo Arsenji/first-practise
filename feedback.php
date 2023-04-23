@@ -1,22 +1,34 @@
 <?php
+session_start(); // начинаем сессию
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     define( 'DB_HOST', 'localhost');
     define( 'DB_USER', 'root');
     define( 'DB_PASS', '');
-    define( 'DB_NAME', 'feedback');
+    define( 'DB_NAME', 'first-practise2');
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME );
 
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
-        }
-$textShort = mysqli_real_escape_string($conn, $_POST['textShort']);
-$textareaField = mysqli_real_escape_string($conn, $_POST['textareaField']);
-$radioButtons = mysqli_real_escape_string($conn, $_POST['radioButtons']);
-$selectedField = mysqli_real_escape_string($conn, $_POST['selectField']);
-$checkBox = mysqli_real_escape_string($conn, $_POST['checkbox']);
+    }
+    $textShort = mysqli_real_escape_string($conn, $_POST['textShort']);
+    $textareaField = mysqli_real_escape_string($conn, $_POST['textareaField']);
+    $radioButtons = mysqli_real_escape_string($conn, $_POST['radioButtons']);
+    $selectedField = mysqli_real_escape_string($conn, $_POST['selectField']);
+    $checkBox = mysqli_real_escape_string($conn, $_POST['checkbox']);
+    $email = $_SESSION['email'];
+    $password = $_SESSION['password'];
 
-$sql = "INSERT INTO feedback_users (textShort, textareaField, radioButtons, selectField, checkBox) VALUES ('$textShort', '$textareaField', '$radioButtons', '$selectedField','$checkBox')";
+    $sql = "SELECT id FROM users WHERE email = '$email' AND password = '$password'";
+    $result = $conn->query($sql);
 
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $user_id = $row["id"];
+        $sql = "UPDATE users SET textShort = '$textShort', textareaField = '$textareaField', radioButtons = '$radioButtons', selectField = '$selectField', checkBox = '$checkBox' WHERE id='$user_id'";
+};
+    var_dump($email);
+    var_dump($password);
 if (mysqli_query($conn, $sql)) {
     echo "Данные успешно сохранены";
 } else {
