@@ -11,6 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
+
     $textShort = mysqli_real_escape_string($conn, $_POST['textShort']);
     $textareaField = mysqli_real_escape_string($conn, $_POST['textareaField']);
     $radioButtons = mysqli_real_escape_string($conn, $_POST['radioButtons']);
@@ -27,8 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = $row["id"];
         $sql = "UPDATE users SET textShort = '$textShort', textareaField = '$textareaField', radioButtons = '$radioButtons', selectField = '$selectField', checkBox = '$checkBox' WHERE id='$user_id'";
 };
-    var_dump($email);
-    var_dump($password);
+
 if (mysqli_query($conn, $sql)) {
     echo "Данные успешно сохранены";
 } else {

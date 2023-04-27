@@ -25,18 +25,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        
+
         if(mysqli_num_rows($result) == 1) {
-            // авторизуем пользователя
-            $_SESSION['email'] = $email;
-            $_SESSION['password'] = $password;
-            header("location: welcome.php"); // переходим на страницу приветствия
-          } else {
+                                // авторизуем пользователя
+           $_SESSION['email'] = $email;
+           $_SESSION['password'] = $password;
+           header("location: welcome.php"); // переходим на страницу приветствия
+        } else {
             $error = "Неверный пароль";
-          } 
-         } else {
-            $error = "Пользователь с таким email не найден";
         }
+    } else {
+        $error = "Пользователь с таким email не найден";
+    }
     mysqli_close($conn); // закрываем соединение с базой данных
 }
 
