@@ -11,12 +11,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-
+//Получаем данные из формы
     $textShort = mysqli_real_escape_string($conn, $_POST['textShort']);
     $textareaField = mysqli_real_escape_string($conn, $_POST['textareaField']);
     $radioButtons = mysqli_real_escape_string($conn, $_POST['radioButtons']);
     $selectedField = mysqli_real_escape_string($conn, $_POST['selectField']);
-    $checkBox = mysqli_real_escape_string($conn, $_POST['checkbox']);
+    $my_checkbox_array = isset($_POST['checkbox']) ? $_POST['checkbox'] : array();
+    $checkBox = implode(",", $my_checkbox_array);
+
     $email = $_SESSION['email'];
     $password = $_SESSION['password'];
 
@@ -26,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $user_id = $row["id"];
-        $sql = "UPDATE users SET textShort = '$textShort', textareaField = '$textareaField', radioButtons = '$radioButtons', selectField = '$selectField', checkBox = '$checkBox' WHERE id='$user_id'";
+        $sql = "UPDATE users SET textShort = '$textShort', textareaField = '$textareaField', radioButtons = '$radioButtons', selectField = '$selectedField', checkBox = '$checkBox' WHERE id='$user_id'";
 };
 
 if (mysqli_query($conn, $sql)) {
@@ -34,7 +36,7 @@ if (mysqli_query($conn, $sql)) {
 } else {
     echo "Ошибка: " . mysqli_error($conn);
 }
-
+var_dump($checkBox);
 mysqli_close($conn);
 }
 ?>
@@ -65,16 +67,22 @@ mysqli_close($conn);
 			<option value="3">Мне все равно</option>
 		</select><br>
 
-		<label>Насколько бы вы оценили наш сайт:</label><br>
-		<input type="checkbox" id="checkbox_1" name="checkbox" value="1">
-		<label for="checkbox_1">1</label><br>
-		<input type="checkbox" id="checkbox_2" name="checkbox" value="2">
-		<label for="checkbox_2">2</label><br>
-        <input type="checkbox" id="checkbox_3" name="checkbox" value="3">
+
+        <label>Насколько бы вы оценили наш сайт:</label><br>
+
+		<input type="checkbox" id="checkbox_1" name="checkbox[]" value="1">
+        <label for="checkbox_1">1</label><br>
+
+		<input type="checkbox" id="checkbox_2" name="checkbox[]" value="2">
+        <label for="checkbox_2">2</label><br>
+
+        <input type="checkbox" id="checkbox_3" name="checkbox[]" value="3">
         <label for="checkbox_1">3</label><br>
-        <input type="checkbox" id="checkbox_4" name="checkbox" value="4">
+
+        <input type="checkbox" id="checkbox_4" name="checkbox[]" value="4">
         <label for="checkbox_1">4</label><br>
-        <input type="checkbox" id="checkbox_5" name="checkbox" value="5">
+
+        <input type="checkbox" id="checkbox_5" name="checkbox[]" value="5">
         <label for="checkbox_1">5</label><br>
 
 		<input type="submit" name="Send" id="send" value="Отправить">
